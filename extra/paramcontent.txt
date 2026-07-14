@@ -1,0 +1,5 @@
+{
+  "searchQuery": "Solutions Architect London cloud",
+  "locations": ["United Kingdom"],
+  "currentJobTitles": ["Solutions Architect", "Cloud Architect", "Technical Architect"]
+}

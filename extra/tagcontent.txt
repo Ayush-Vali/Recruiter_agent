@@ -1,0 +1,60 @@
+{
+  "rules": [
+    {
+      "tag": "cloud_exp",
+      "label": "Cloud Experience",
+      "weight": 4,
+      "match_type": "keyword",
+      "keywords": ["cloud", "aws", "azure", "google cloud"]
+    },
+    {
+      "tag": "location",
+      "label": "Location",
+      "weight": 2,
+      "match_type": "location",
+      "keywords": ["london", "gb", "uk", "europe"]
+    },
+    {
+      "tag": "tech_skills",
+      "label": "Technical Skills",
+      "weight": 5,
+      "match_type": "keyword",
+      "keywords": ["python", "java", "c++", "javascript", "sql"]
+    },
+    {
+      "tag": "edu_background",
+      "label": "Education Background",
+      "weight": 3,
+      "match_type": "keyword",
+      "keywords": ["computer science", "engineering", "bachelor", "master"]
+    },
+    {
+      "tag": "language",
+      "label": "Language Skills",
+      "weight": 1,
+      "match_type": "keyword",
+      "keywords": ["english", "fluent"]
+    },
+    {
+      "tag": "consulting_skills",
+      "label": "Consulting Skills",
+      "weight": 4,
+      "match_type": "semantic",
+      "keywords": ["consulting", "communication", "solution design"]
+    },
+    {
+      "tag": "cultural_fit",
+      "label": "Cultural Fit",
+      "weight": 2,
+      "match_type": "semantic",
+      "keywords": ["team player", "motivated", "passionate"]
+    },
+    {
+      "tag": "aws_services",
+      "label": "AWS Services Knowledge",
+      "weight": 5,
+      "match_type": "keyword",
+      "keywords": ["aws services", "solutions architecture", "well-architected framework"]
+    }
+  ]
+}

@@ -9,4 +9,5 @@ def generate_report(state: AgentState) -> AgentState:
         print(f"   Score  : {sc.score}/10  |  Fit: {sc.fit.upper()}")
         print(f"   Signals: {', '.join(sc.signals) or 'none'}")
         print(f"   LLM    : {sc.llm_reasoning[:200]}...")
+        
     return state

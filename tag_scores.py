@@ -16,3 +16,4 @@ INDIA_TAG_SCORES = {
     "product_type":    ("SaaS / B2C / B2B / marketplace",           2),
     "startup":         ("General startup exposure",                  1),
 }
+

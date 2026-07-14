@@ -2,10 +2,18 @@ from models import AgentState, ScoreCard, Candidate
 
 from tag_scores import SAUDI_TAG_SCORES, INDIA_TAG_SCORES
 
-def score_candidate(candidate: Candidate, region: str) -> ScoreCard:
-    tag_map = SAUDI_TAG_SCORES if region == "saudi" else INDIA_TAG_SCORES
-
-    score   = 0.0
+def score_candidate(candidate: Candidate, state: AgentState) -> ScoreCard:
+    # Generic mode uses dynamic rules from LLM
+    if state.tag_rules:
+        tag_map = {
+            rule["tag"]: (rule["label"], rule["weight"])
+            for rule in state.tag_rules
+        }
+    else:
+        # Specialized mode fallback
+        tag_map = SAUDI_TAG_SCORES if state.region == "saudi" else INDIA_TAG_SCORES
+        
+    score   = 0.0 # for readability
     signals = []
 
     for tag, (label, points) in tag_map.items():
@@ -20,7 +28,7 @@ def score_candidate(candidate: Candidate, region: str) -> ScoreCard:
     return ScoreCard(
         name=candidate.name,
         linkedin_url=candidate.linkedin_url,
-        region=region,
+        region=state.region,
         score=normalised,
         signals=signals,
         llm_reasoning="",
@@ -30,6 +38,6 @@ def score_candidate(candidate: Candidate, region: str) -> ScoreCard:
 
 def scoring_node(state: AgentState) -> AgentState:
     state.scored_candidates = [
-        score_candidate(c, state.region) for c in state.candidates
+        score_candidate(c, state) for c in state.candidates
     ]
     return state
