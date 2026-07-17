@@ -4,8 +4,6 @@
 
 An intelligent **LangGraph agent** that takes **any Job Description (JD)**, intelligently decides the best processing strategy, dynamically extracts Apify search parameters, scrapes LinkedIn profiles, applies either rich region-specific tagging (for Saudi Arabia & India) **or LLM-generated scoring rules** (for any other country/company), performs cultural/technical analysis, and returns the **Top 5 best-fit candidates** with LinkedIn URLs and detailed Fit ScoreCards.
 
-Built for the "Cross-Border Recruiter Agent" assignment with strong emphasis on scalability and universality.
-
 ---
 
 ## ✨ Features
