@@ -4,8 +4,6 @@ from langchain_huggingface import ChatHuggingFace, HuggingFaceEndpoint
 from models import AgentState 
 from prompts import SAUDI_PROMPT, INDIA_PROMPT
 
-ll=HuggingFaceEndpoint(repo_id="", )
-
 load_dotenv()
 
 llm = HuggingFaceEndpoint(
