@@ -29,15 +29,15 @@ def extract_apify_params(state: AgentState) -> AgentState:
     response = model.invoke(prompt)
     content = response.content.strip()
 
-    # Save to a JSON file
-    with open("extra/paramcontent.json", "w") as json_file:
-        json.dump(content, json_file, indent=4)
-    # Save to the specified file
-    with open("extra/paramcontent.txt", "w") as file:
-        file.write(content)
+    # # Save to a JSON file
+    # with open("extra/paramcontent.json", "w") as json_file:
+    #     json.dump(content, json_file, indent=4)
+    # # Save to the specified file
+    # with open("extra/paramcontent.txt", "w") as file:
+    #     file.write(content)
         
     try:
-        data = json.loads(content)
+        data = content               # json.loads(content)
         state.search_params = data
     except Exception:
         # safe fallback

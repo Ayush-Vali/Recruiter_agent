@@ -39,15 +39,15 @@ def generate_tag_scores(state: AgentState) -> AgentState:
     response = model.invoke(prompt)
     content = response.content.strip()
 
-        # Save to a JSON file
-    with open("extra/tagcontent.json", "w") as json_file:
-        json.dump(content, json_file, indent=4)
-    # Save to the specified file
-    with open("extra/tagcontent.txt", "w") as file:
-        file.write(content)
+    #     # Save to a JSON file
+    # with open("extra/tagcontent.json", "w") as json_file:
+    #     json.dump(content, json_file, indent=4)
+    # # Save to the specified file
+    # with open("extra/tagcontent.txt", "w") as file:
+    #     file.write(content)
         
     try:
-        data = json.loads(content)
+        data = content            # json.loads(content)
         state.tag_rules = data.get("rules", [])
     except Exception:
         # Safe fallback

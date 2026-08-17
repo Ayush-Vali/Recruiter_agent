@@ -64,7 +64,12 @@
 
     <form method="post">
         <h3>Paste Job Description (JD)</h3>
-        <textarea name="jd" placeholder="We are hiring a Product Manager for our Riyadh office...">{{ jd or '' }}</textarea><br>
+            <select id="exampleJD" onchange="loadExampleJD()">
+        <option value="">-- Load an example JD --</option>
+        <option value="london_pm">Product Manager – London</option>
+        <option value="mumbai_ml">Machine Learning Engineer – Mumbai</option>
+    </select>
+        <textarea name="jd" id="jd" placeholder="We are hiring a Product Manager for our Riyadh office...">{{ jd or '' }}</textarea><br>
         <button type="submit">Run Agent → Find Top 5 Candidates</button>
     </form>
 
@@ -94,4 +99,50 @@
         </div>
     {% endif %}
 </body>
+<script>
+const exampleJDs = {
+    london_pm: `We are looking for a Product Manager to join our London office.
+
+Responsibilities:
+- Define product strategy and roadmap.
+- Work with engineering, design, and business teams.
+- Analyze customer requirements and market trends.
+- Manage product lifecycle from discovery to launch.
+
+Requirements:
+- 3+ years of product management experience.
+- Experience working with SaaS or technology products.
+- Strong analytical and communication skills.
+- Experience working with cross-functional teams.
+- Bachelor's degree in Computer Science, Business, Engineering, or a related field.
+
+Location: London
+Employment Type: Full-time`,
+
+    mumbai_ml: `We are looking for a Machine Learning Engineer in Mumbai.
+
+Responsibilities:
+- Develop and deploy machine learning models.
+- Build data preprocessing and feature engineering pipelines.
+- Work with Python and Scikit-learn.
+- Evaluate and improve model performance.
+- Collaborate with data and software engineering teams.
+
+Requirements:
+- Strong Python programming skills.
+- Knowledge of machine learning algorithms.
+- Experience with Pandas, NumPy and Scikit-learn.
+- Understanding of model evaluation and feature engineering.
+- Bachelor's degree in Computer Science, IT, Data Science or related field.
+
+Location: Mumbai, India
+Employment Type: Full-time`,
+
+};
+
+function loadExampleJD() {
+    const selected = document.getElementById("exampleJD").value;
+    document.getElementById("jd").value = exampleJDs[selected] || "";
+}
+</script>
 </html>
