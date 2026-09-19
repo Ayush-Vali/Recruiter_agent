@@ -18,7 +18,7 @@ def decide_mode(state: AgentState) -> AgentState:
     prompt = DECIDE_PROMPT.format(jd=state.jd[:2000])
     response = model.invoke(prompt)
     decision = response.content.strip().lower()
-    decision = "generic"
+    # decision = "generic" # Test
 
     state.mode = "specialized" if "specialized" in decision else "generic"
     return state

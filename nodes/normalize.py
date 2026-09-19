@@ -179,9 +179,11 @@ def normalize_data(state: AgentState) -> AgentState:
                     elif match_type == "location":
                         if any(k.lower() in location_lower for k in keywords):
                             tags.append(rule["tag"])
-                    elif match_type == "semantic":
+                    elif match_type == "semantic":  # this is useless for now
+                        ''' Could have searched from Just About me of candidte'''
                         if any(k.lower() in full_text_lower for k in keywords):
                             tags.append(rule["tag"])
+                    # elif match_type == "skills" ... for this updte generate_tag_scor
             
 
             c = Candidate(

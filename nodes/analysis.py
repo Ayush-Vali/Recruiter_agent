@@ -9,9 +9,9 @@ load_dotenv()
 llm = HuggingFaceEndpoint(
     # repo_id="meta-llama/Meta-Llama-3.1-8B-Instruct",  
     # repo_id = "Qwen/Qwen2.5-32B-Instruct",
-    # repo_id="deepseek-ai/DeepSeek-V3.2",
+    repo_id="deepseek-ai/DeepSeek-V3.2",
     huggingfacehub_api_token=os.getenv("HF_TOKEN"),
-    repo_id="meta-llama/Llama-3.3-70B-Instruct",
+    # repo_id="meta-llama/Llama-3.3-70B-Instruct",
     temperature=0.7,         
 )
 model = ChatHuggingFace(llm=llm)
@@ -99,18 +99,43 @@ def cultural_analysis(state: AgentState) -> AgentState:
         prompt_template = SAUDI_PROMPT if state.region == "saudi" else INDIA_PROMPT
     else:
         prompt_template = GENERIC_PROMPT
-    ## updated_scores = []
+    updated_scores = [] # For saving
     for c, sc in zip(state.candidates, state.scored_candidates):
         prompt = prompt_template.format(
             name=safe_text(c.name, 100),
             experience=safe_text(c.experience, 1500),
             signals=sc.signals
         )
-        response  = model8B.invoke(prompt)
-        reasoning = response.content.strip()
+        response  = model.invoke(prompt)
+        reasoning = response.content
 
         sc.llm_reasoning = reasoning
+    
+    ### IF NEED TO SAVE AND USE LATER
+    #     updated_scores.append(reasoning) # For saving    
+    # with open("extra/reason.py", "w") as f:
+    #     f.write(f"my_list = {repr(updated_scores)}\n")
+        
+    # import extra.reason as pc
 
+    # reasoning = pc.my_list
+    # for i in range(len(state.scored_candidates)): 
+    #     state.scored_candidates[i].llm_reasoning = reasoning[i]
+    
     return state
 
 ## GOAL of this - sc.llm_reasoning = reasoning
+
+import json
+import ast
+
+def parse_model_output(raw: str):
+    raw = raw.strip()
+    try:
+        return json.loads(raw)          # try strict JSON first
+    except json.JSONDecodeError:
+        try:
+            return ast.literal_eval(raw)  # fallback: Python literal syntax
+        except (ValueError, SyntaxError) as e:
+            raise ValueError(f"Could not parse model output: {raw}") from e
+        

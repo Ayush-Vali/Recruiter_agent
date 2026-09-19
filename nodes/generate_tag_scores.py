@@ -1,6 +1,6 @@
 import json
 from models import AgentState
-from nodes.analysis import model
+from nodes.analysis import model,parse_model_output
 
 TAG_SCORES_PROMPT = """
 You are an expert recruiter designing an automated candidate scoring system.
@@ -37,17 +37,23 @@ JSON only:
 def generate_tag_scores(state: AgentState) -> AgentState:
     prompt = TAG_SCORES_PROMPT.format(jd=state.jd[:2500])
     response = model.invoke(prompt)
-    content = response.content.strip()
-
+    
+    ## IF NEED TO SAVE AND USE LATER
+    # content_sv = response.content.strip()
     #     # Save to a JSON file
     # with open("extra/tagcontent.json", "w") as json_file:
-    #     json.dump(content, json_file, indent=4)
+    #     json.dump(content_sv, json_file, indent=4)
     # # Save to the specified file
     # with open("extra/tagcontent.txt", "w") as file:
-    #     file.write(content)
-        
+    #     file.write(content_sv)
+    
+
+
+    # with open("extra/tagcontent.json", "r") as f:  # TEST
+    #     raw = json.load(f)  #TEST
     try:
-        data = content            # json.loads(content)
+        # data =parse_model_output(raw)  # TEST
+        data=parse_model_output(response.content)
         state.tag_rules = data.get("rules", [])
     except Exception:
         # Safe fallback

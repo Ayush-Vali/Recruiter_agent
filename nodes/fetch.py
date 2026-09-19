@@ -36,8 +36,12 @@ def fetch_candidates(state: AgentState) -> AgentState:
         "startPage": 1,
     }
 
+# Guarenteed json from apify
     run   = client.actor("harvestapi/linkedin-profile-search").call(run_input=run_input)
     items = list(client.dataset(run["defaultDatasetId"]).iterate_items())
 
-    state.raw_profiles = items
+
+    # with open("extra/apify_json_data.json", "r", encoding="utf-8") as f:  # TEST
+    #     items = json.load(f)  # TEST
+    state.raw_profiles = items  
     return state
